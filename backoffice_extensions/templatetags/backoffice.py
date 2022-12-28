@@ -123,7 +123,12 @@ def getattr_filter(obj, name):
 
     if isinstance(name, tuple) and len(name) > 0:
         name = name[0]
-    result = getattr(obj, name)
+
+    if isinstance(obj, dict):
+        result = obj.get(name)
+    else:
+        result = getattr(obj, name)
+
     if result is None:
         result = "-"
     for detail_url_data in DETAILS_URLS:
